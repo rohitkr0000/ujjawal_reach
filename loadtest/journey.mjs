@@ -104,7 +104,7 @@ async function visitor(i) {
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       mode: 'family', state: 'Delhi', district: 'West Delhi', address: { house: '65', locality: 'Shakti Colony', pincode: '110059' },
-      family: { income: 100000, category: 'OBC', minority: false, residence: 8 },
+      family: { income: 100000, category: 'OBC', minority: false },
       people: [
         { name: 'Asha Devi', relation: 'Self', mobile, gender: 'Female', age: 34, education: 'Secondary', occupation: 'Daily Wages', income: 100000, category: 'OBC', minority: false, special: [] },
         { name: 'Raju', relation: 'Son', mobile, gender: 'Male', age: 9, education: 'Primary', occupation: 'Student', income: 100000, category: 'OBC', minority: false, special: [] },

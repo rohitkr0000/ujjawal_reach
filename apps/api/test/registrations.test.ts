@@ -14,7 +14,7 @@ const family = (over: Record<string, unknown> = {}) => ({
   state: 'Madhya Pradesh',
   district: 'Indore',
   address: { house: '12', locality: 'Vijay Nagar', pincode: '452010' },
-  family: { income: 200000, category: 'SC', minority: false, residence: 10 },
+  family: { income: 200000, category: 'SC', minority: false },
   people: [person({ name: 'Ram', gender: 'Male', age: 40, relation: 'Self', mobile: '9876500002' }), person({ name: 'Sita', relation: 'Spouse', mobile: '9876500003' })],
   consent: { details: true, tracking: false },
   ...over,

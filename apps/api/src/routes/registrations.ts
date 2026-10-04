@@ -66,7 +66,6 @@ const registrationSchema = z
         income: incomeSchema,
         category: z.enum(CATEGORIES),
         minority: z.boolean(),
-        residence: z.number().int().min(0).max(120),
       })
       .nullable(),
     people: z.array(personSchema).min(1).max(20),

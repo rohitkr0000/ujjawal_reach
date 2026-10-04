@@ -74,7 +74,7 @@ describe('Results', () => {
     const data: SubmitData = {
       ...base,
       mode: 'family',
-      family: { income: 0, category: 'SC', minority: false, residence: 5 },
+      family: { income: 0, category: 'SC', minority: false },
       people: [person({ age: 40 }), { ...person({ age: 10, gender: 'Female', occupation: 'Student', education: 'Primary' }), name: 'Meena', relation: 'Daughter' }],
     };
     const html = render(data, load('delhi'));

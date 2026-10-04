@@ -36,7 +36,7 @@ export interface SubmitData {
   district: string;
   addressText: string;
   address: { house: string; locality: string; pincode: string };
-  family: { income: number; category: string; minority: boolean; residence: number } | null;
+  family: { income: number; category: string; minority: boolean } | null;
   people: Person[];
   consentTracking: boolean;
 }
@@ -209,7 +209,6 @@ export function PersonalForm({
               { value: 'Female', label: t('female') },
             ]}
           />
-          <TextField label={`7. ${t('residence')} *`} name="residence" value={v.residence} onChange={(x) => set({ residence: x.replace(/\D/g, '').slice(0, 3) })} errors={errors} inputMode="numeric" />
         </div>
         <CheckField checked={v.minority} onChange={(c) => set({ minority: c })}>
           {t('minority')}
@@ -312,7 +311,6 @@ export function FamilyForm({
         income: Number(root.income),
         category: root.category,
         minority: root.minority,
-        residence: Number(root.residence),
       },
       people: members.map((m) => memberToPerson(m, root, state)),
       consentTracking: root.consentTracking,
@@ -331,7 +329,6 @@ export function FamilyForm({
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <SelectField label={`2. ${t('income')} *`} name="income" value={root.income} onChange={(x) => setR({ income: x })} errors={rootErrors} options={options.income} />
           <SelectField label={`3. ${t('category')} *`} name="category" value={root.category} onChange={(x) => setR({ category: x })} errors={rootErrors} options={options.category} />
-          <TextField label={`7. ${t('residence')} *`} name="residence" value={root.residence} onChange={(x) => setR({ residence: x.replace(/\D/g, '').slice(0, 3) })} errors={rootErrors} inputMode="numeric" />
         </div>
         <CheckField checked={root.minority} onChange={(c) => setR({ minority: c })}>
           {t('minority')}

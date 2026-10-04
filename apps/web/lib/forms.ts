@@ -11,7 +11,6 @@ export interface PersonalValues {
   education: string;
   occupation: string;
   gender: string;
-  residence: string;
   special: string[];
   house: string;
   locality: string;
@@ -25,7 +24,6 @@ export interface FamilyRootValues {
   income: string;
   category: string;
   minority: boolean;
-  residence: string;
   house: string;
   locality: string;
   district: string;
@@ -68,7 +66,6 @@ export const emptyPersonal = (): PersonalValues => ({
   education: '',
   occupation: '',
   gender: '',
-  residence: '5',
   special: [],
   house: '',
   locality: '',
@@ -82,7 +79,6 @@ export const emptyFamilyRoot = (): FamilyRootValues => ({
   income: '',
   category: '',
   minority: false,
-  residence: '5',
   house: '',
   locality: '',
   district: '',
@@ -125,10 +121,6 @@ function checkAddress(errors: Errors, v: { house: string; locality: string; dist
   else if (!PINCODE_RE.test(v.pincode.trim())) errors['pincode'] = 'errPincode';
 }
 
-function checkResidence(errors: Errors, v: string) {
-  if (!/^\d{1,3}$/.test(v.trim())) errors['residence'] = 'errRequired';
-}
-
 export function validatePersonal(v: PersonalValues): Errors {
   const e: Errors = {};
   req(e, 'name', v.name);
@@ -139,7 +131,6 @@ export function validatePersonal(v: PersonalValues): Errors {
   req(e, 'education', v.education);
   req(e, 'occupation', v.occupation);
   req(e, 'gender', v.gender);
-  checkResidence(e, v.residence);
   checkAddress(e, v);
   if (!v.consentDetails) e['consentDetails'] = 'errConsent';
   return e;
@@ -149,7 +140,6 @@ export function validateFamilyRoot(v: FamilyRootValues): Errors {
   const e: Errors = {};
   req(e, 'income', v.income);
   req(e, 'category', v.category);
-  checkResidence(e, v.residence);
   checkAddress(e, v);
   if (!v.consentDetails) e['consentDetails'] = 'errConsent';
   return e;

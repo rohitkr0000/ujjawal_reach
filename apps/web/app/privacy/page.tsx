@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           <ul className="list-disc space-y-1 pl-5">
             <li>
               The details you type into the forms: name, mobile number, age, gender, income bracket,
-              caste category, education, occupation, years of residence, address, and the optional
+              caste category, education, occupation, address, and the optional
               groups you tick (disability, patient, artisan, homeless, minority).
             </li>
             <li>
