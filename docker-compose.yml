@@ -1,0 +1,36 @@
+# A production-like stack on one machine:  docker compose up --build
+# Set the secrets in a .env file next to this file (see .env.example).
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ujjwal
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-locally}
+      POSTGRES_DB: ujjwal
+      LANG: C.UTF-8
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ujjwal']
+      interval: 5s
+      retries: 10
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgres://ujjwal:${POSTGRES_PASSWORD:-change-me-locally}@db:5432/ujjwal?sslmode=disable
+      JWT_SECRET: ${JWT_SECRET}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
+      ERROR_WEBHOOK_URL: ${ERROR_WEBHOOK_URL:-}
+    ports:
+      - '4000:4000'
+volumes:
+  dbdata:

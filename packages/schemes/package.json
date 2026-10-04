@@ -1,0 +1,18 @@
+{
+  "name": "@ujjwal/schemes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./excel": "./src/excel/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "data:build": "tsx scripts/build-data.ts"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}

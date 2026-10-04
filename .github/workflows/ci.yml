@@ -1,0 +1,40 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: pw
+          POSTGRES_DB: ujjwal_test
+          LANG: C.UTF-8
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      # The same API tests again on a real Postgres server (the production database).
+      - run: npm test -w @ujjwal/api
+        env:
+          TEST_DATABASE_URL: postgres://postgres:pw@localhost:5432/ujjwal_test
+      - run: npm run build -w @ujjwal/api
+      - run: npm run build -w @ujjwal/web
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:4000

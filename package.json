@@ -1,0 +1,40 @@
+{
+  "name": "ujjwal-reach",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev:web": "npm run dev -w @ujjwal/web",
+    "dev:api": "npm run dev -w @ujjwal/api",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "eslint .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "data:build": "npm run data:build -w @ujjwal/schemes"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.4",
+    "eslint": "^10.12.0",
+    "prettier": "^3.9.9",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.0",
+    "undici": "^8.11.2",
+    "vitest": "^5.0.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.23",
+    "uuid": "^11.1.1"
+  }
+}

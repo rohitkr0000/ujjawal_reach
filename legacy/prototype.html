@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujjwal Reach Welfare Portal - State & Scheme Eligibility</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        ujjwalBlue: '#1e3a8a',
+                        ujjwalDark: '#0f172a',
+                        saffron: '#ea580c',
+                        saffronLight: '#ffedd5',
+                        saffronAccent: '#f97316'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .pattern-bg {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+        }
+    </style>
+</head>
+<body class="pattern-bg font-sans text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white">
+
+    <div>
+        <!-- Top Announcement Bar -->
+        <div class="bg-gradient-to-r from-orange-600 via-amber-600 to-blue-900 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-inner flex items-center justify-center gap-2">
+            <span class="bg-white/20 px-2 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider">Ujjwal Reach Initiative</span>
+            <span>Multi-State Welfare Consulting & Scheme Eligibility Portal (Delhi & Madhya Pradesh Active)</span>
+        </div>
+
+        <!-- Main Header / Navbar -->
+        <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 shadow-sm transition-all">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <!-- Branding -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToStateSelection()">
+                    <div class="h-12 w-12 rounded-xl bg-gradient-to-tr from-blue-900 to-orange-600 flex items-center justify-center text-white shadow-md transform hover:rotate-6 transition-transform">
+                        <i data-lucide="layers" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900">Ujjwal<span class="text-orange-600">Reach</span></span>
+                            <span id="selectedStateBadge" class="hidden sm:inline-block bg-orange-100 text-orange-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Select State</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium hidden sm:block">Digital Scheme Eligibility & Card System</p>
+                    </div>
+                </div>
+
+                <!-- Right Action Links -->
+                <div class="flex items-center space-x-4">
+                    <a href="tel:9034317029" class="hidden sm:inline-flex items-center space-x-1.5 text-sm font-semibold text-slate-700 hover:text-orange-600 transition-colors">
+                        <i data-lucide="headphones" class="w-4 h-4"></i>
+                        <span>Helpline: 9034317029</span>
+                    </a>
+                    <button onclick="openModal('Quick Status Check')" class="bg-gradient-to-r from-orange-600 to-amber-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 transform hover:-translate-y-0.5 transition-all flex items-center space-x-2">
+                        <i data-lucide="user-check" class="w-4 h-4"></i>
+                        <span>Check Status</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="heroSection" class="hero-gradient text-white py-14 sm:py-20 relative overflow-hidden">
+            <div class="absolute -right-20 -top-20 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-orange-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-orange-400 text-xs sm:text-sm font-semibold mb-6 border border-white/10 shadow-inner">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span>Brought to you by Ujjwal Reach Firm</span>
+                </div>
+                
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                    Select your <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">State & Registration</span>
+                </h1>
+                
+                <p id="heroSubtitle" class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto font-normal leading-relaxed mb-8">
+                    Please select between Delhi and Madhya Pradesh to load state-specific welfare schemes and district data.
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Dynamic Content Container -->
+        <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 mb-20 relative z-25">
+            
+            <!-- Step 1: State Selection View -->
+            <div id="stateSelectionView" class="space-y-6">
+                <div class="text-center max-w-xl mx-auto mb-8">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">Step 1: Choose Your State</h2>
+                    <p class="text-sm text-slate-600">Currently active states: <b>Delhi</b> and <b>Madhya Pradesh</b>. Other states are locked.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                    <!-- Delhi (Active) -->
+                    <div onclick="selectState('Delhi')" class="bg-white p-6 rounded-2xl shadow-md border-2 border-slate-100 hover:border-orange-500 hover:shadow-xl transition cursor-pointer text-center group">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-900 rounded-xl flex items-center justify-center mx-auto mb-3 font-bold text-lg group-hover:bg-orange-500 group-hover:text-white transition">DL</div>
+                        <h3 class="font-bold text-slate-900 text-lg">Delhi</h3>
+                        <p class="text-xs text-slate-500 mt-1">NCT Schemes & Subsidies</p>
+                        <span class="inline-block mt-3 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">Active Ready</span>
+                    </div>
+
+                    <!-- Madhya Pradesh (Active) -->
+                    <div onclick="selectState('Madhya Pradesh')" class="bg-white p-6 rounded-2xl shadow-md border-2 border-slate-100 hover:border-orange-500 hover:shadow-xl transition cursor-pointer text-center group">
+                        <div class="w-12 h-12 bg-orange-100 text-orange-900 rounded-xl flex items-center justify-center mx-auto mb-3 font-bold text-lg group-hover:bg-orange-500 group-hover:text-white transition">MP</div>
+                        <h3 class="font-bold text-slate-900 text-lg">Madhya Pradesh</h3>
+                        <p class="text-xs text-slate-500 mt-1">15 Schemes (prototype)</p>
+                        <span class="inline-block mt-3 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">Active Ready</span>
+                    </div>
+
+                    <!-- Uttar Pradesh (Locked) -->
+                    <div onclick="lockedStateAlert('Uttar Pradesh')" class="bg-slate-50 p-6 rounded-2xl shadow-sm border-2 border-slate-200 opacity-60 cursor-not-allowed text-center group">
+                        <div class="w-12 h-12 bg-slate-200 text-slate-600 rounded-xl flex items-center justify-center mx-auto mb-3 font-bold text-lg">UP</div>
+                        <h3 class="font-bold text-slate-700 text-lg">Uttar Pradesh</h3>
+                        <p class="text-xs text-slate-400 mt-1">Coming Soon</p>
+                        <span class="inline-block mt-3 bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded">Locked</span>
+                    </div>
+
+                    <!-- Uttarakhand (Locked) -->
+                    <div onclick="lockedStateAlert('Uttarakhand')" class="bg-slate-50 p-6 rounded-2xl shadow-sm border-2 border-slate-200 opacity-60 cursor-not-allowed text-center group">
+                        <div class="w-12 h-12 bg-slate-200 text-slate-600 rounded-xl flex items-center justify-center mx-auto mb-3 font-bold text-lg">UK</div>
+                        <h3 class="font-bold text-slate-700 text-lg">Uttarakhand</h3>
+                        <p class="text-xs text-slate-400 mt-1">Coming Soon</p>
+                        <span class="inline-block mt-3 bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded">Locked</span>
+                    </div>
+
+                    <!-- Punjab (Locked) -->
+                    <div onclick="lockedStateAlert('Punjab')" class="bg-slate-50 p-6 rounded-2xl shadow-sm border-2 border-slate-200 opacity-60 cursor-not-allowed text-center group">
+                        <div class="w-12 h-12 bg-slate-200 text-slate-600 rounded-xl flex items-center justify-center mx-auto mb-3 font-bold text-lg">PB</div>
+                        <h3 class="font-bold text-slate-700 text-lg">Punjab</h3>
+                        <p class="text-xs text-slate-400 mt-1">Coming Soon</p>
+                        <span class="inline-block mt-3 bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded">Locked</span>
+                    </div>
+
+                    <!-- Other State (Locked) -->
+                    <div onclick="lockedStateAlert('Other State')" class="bg-slate-50 p-6 rounded-2xl shadow-sm border-2 border-slate-200 opacity-60 cursor-not-allowed text-center group">
+                        <div class="w-12 h-12 bg-slate-200 text-slate-600 rounded-xl flex items-center justify-center mx-auto mb-3 font-bold text-lg">OT</div>
+                        <h3 class="font-bold text-slate-700 text-lg">Other State</h3>
+                        <p class="text-xs text-slate-400 mt-1">Coming Soon</p>
+                        <span class="inline-block mt-3 bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded">Locked</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Registration Type Selection (Hidden initially) -->
+            <div id="selectionView" class="grid md:grid-cols-2 gap-8 lg:gap-10 hidden">
+                <!-- Personal Registration Card -->
+                <div onclick="openMode('personal')" class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col justify-between transform hover:-translate-y-2 transition-all duration-300 relative group cursor-pointer">
+                    <div class="absolute top-6 right-6 bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-100">
+                        Individual
+                    </div>
+                    <div>
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center text-white mb-6 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
+                            <i data-lucide="user" class="w-8 h-8"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-3 tracking-tight">Personal Registration</h2>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            7-criteria filter and direct portal link for individual welfare schemes, scholarships, and pensions for <span id="cardStateName1" class="font-bold text-blue-900">Delhi</span>. Includes address details.
+                        </p>
+                        <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 shrink-0"></i>
+                                <span>Instant 7-criteria filter & eligibility check</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 shrink-0"></i>
+                                <span>Personalized welfare scheme dashboard</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 shrink-0"></i>
+                                <span>Direct official portal redirect links</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <button type="button" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-semibold py-3.5 px-6 rounded-xl shadow-md shadow-blue-900/20 hover:shadow-lg transition-all flex items-center justify-center space-x-2 group-hover:bg-blue-950">
+                            <span>Proceed with Personal Card</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Family Welfare Card -->
+                <div onclick="openMode('family')" class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col justify-between transform hover:-translate-y-2 transition-all duration-300 relative group cursor-pointer">
+                    <div class="absolute top-6 right-6 bg-orange-50 text-orange-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-orange-100">
+                        Most Popular
+                    </div>
+                    <div>
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white mb-6 shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">
+                            <i data-lucide="users" class="w-8 h-8"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-3 tracking-tight">Family Welfare Card</h2>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            View state family-level schemes (Ration, Electricity, Housing) and individual member plans consolidated under one Ujjwal Reach Family ID for <span id="cardStateName2" class="font-bold text-orange-600">Delhi</span>.
+                        </p>
+                        <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                                <span>Lock collective family income & state address</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                                <span>Manage members with Edit & Delete support</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-orange-600 shrink-0"></i>
+                                <span>Shared family schemes & individual tabs</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <button type="button" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-md shadow-orange-600/20 hover:shadow-lg transition-all flex items-center justify-center space-x-2">
+                            <span>Proceed with Family Card</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View 3: Personal Registration Form (With Address Details) -->
+            <div id="personalView" class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-100 hidden">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Personal Registration (<span id="activeStateLabel1" class="text-orange-600">Delhi</span>)</h2>
+                        <p class="text-xs text-slate-500">7-criteria filter, address details & direct portal links (Ujjwal Reach)</p>
+                    </div>
+                    <button onclick="backToSelection()" class="text-sm font-semibold text-blue-900 hover:text-orange-600 flex items-center gap-1 bg-blue-50 px-3 py-1.5 rounded-xl transition">
+                        &larr; Change Mode / State
+                    </button>
+                </div>
+
+                <form onsubmit="submitPersonal(event)" class="space-y-6">
+                    <!-- Personal Details Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Full Name *</label>
+                            <input type="text" id="p_name" required placeholder="Enter full name" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Mobile Number *</label>
+                            <input type="tel" id="p_mobile" pattern="[0-9]{10}" placeholder="10 Digit Mobile Number" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">1. Age (Years) *</label>
+                            <input type="number" id="p_age" required min="0" max="100" placeholder="e.g., 35" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">2. Annual Family Income (₹) *</label>
+                            <select id="p_income" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                                <option value="">Select Income Range</option>
+                                <option value="0">Below ₹1 Lakh</option>
+<option value="100000">₹1 Lakh - ₹2 Lakh</option>
+<option value="200000">₹2 Lakh - ₹2.5 Lakh</option>
+<option value="250000">₹2.5 Lakh - ₹3 Lakh</option>
+<option value="300001">Above ₹3 Lakh</option>
+                                
+                                
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">3. Caste Category *</label>
+                            <select id="p_category" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                                <option value="">Select Category</option>
+                                <option value="SC">SC</option>
+                                <option value="ST">ST</option>
+                                <option value="OBC">OBC (Non-Creamy)</option>
+                                <option value="EWS">EWS</option>
+                                <option value="General">General</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">4. Education Level *</label>
+                            <select id="p_education" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                                <option value="">Select Education</option>
+                                <option value="Primary">Primary (1st - 5th)</option>
+                                <option value="Secondary">Secondary (6th - 10th)</option>
+                                <option value="Higher Secondary">Higher Secondary (11th - 12th)</option>
+                                <option value="Graduate">Graduate / Above</option>
+                                <option value="Post Graduate">Post Graduate</option>
+                                <option value="None">None / Illiterate</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">5. Occupation / Beneficiary Type *</label>
+                            <select id="p_occupation" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                                <option value="">Select Occupation</option>
+                                <option value="Student">Student</option>
+                                <option value="Worker">Construction / Labor Worker</option>
+                                <option value="Daily Wages">Daily Wages Worker</option>
+                                <option value="Farmer">Farmer</option>
+                                <option value="Business">Small Business / Vendor</option>
+                                <option value="Salaried">Salaried Employee</option>
+                                <option value="Unemployed">Unemployed / Homemaker</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">6. Gender *</label>
+                            <select id="p_gender" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">7. State Residence Duration (Years) *</label>
+                            <input type="number" id="p_residence" required min="0" value="5" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Personal Address Details Card -->
+                    <div class="bg-blue-50/50 p-5 rounded-2xl border border-blue-100">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-blue-900 mb-3 flex items-center gap-1.5">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i> Residential Address Details
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-600 mb-1">House No. / Block *</label>
+                                <input type="text" id="p_house" placeholder="65" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm" required>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-600 mb-1">Lane / Locality / Colony *</label>
+                                <input type="text" id="p_locality" placeholder="Colony Name" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm" required>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-600 mb-1">District *</label>
+                                <select id="p_district" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm" required>
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-600 mb-1">State *</label>
+                                <input type="text" id="p_state_input" disabled class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-lg text-sm font-bold text-blue-900">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-[11px] font-semibold text-slate-600 mb-1">Pincode *</label>
+                                <input type="text" id="p_pincode" placeholder="110001" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center space-x-2">
+                            <span>Check All Eligible & Potential Schemes</span>
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- View 4: Family Welfare Card Form -->
+            <div id="familyView" class="space-y-6 hidden">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-100">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900">Family Welfare Card (<span id="activeStateLabel2" class="text-orange-600">Delhi</span>)</h2>
+                            <p class="text-xs text-slate-500">Lock family collective parameters and manage members (Ujjwal Reach)</p>
+                        </div>
+                        <button onclick="backToSelection()" class="text-sm font-semibold text-blue-900 hover:text-orange-600 flex items-center gap-1 bg-blue-50 px-3 py-1.5 rounded-xl transition">
+                            &larr; Change Mode / State
+                        </button>
+                    </div>
+
+                    <!-- Family Root Parameters Card -->
+                    <div class="bg-blue-50/50 rounded-2xl p-6 border border-blue-100 mb-6">
+                        <div class="flex justify-between items-center border-b border-blue-200 pb-3 mb-4">
+                            <h3 class="text-sm font-extrabold uppercase tracking-wider text-blue-900 flex items-center gap-2">
+                                <i data-lucide="lock" class="w-4 h-4"></i> Family Root Filter Parameters
+                            </h3>
+                            <span class="bg-blue-200 text-blue-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full">Same for all members</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">2. Annual Family Income (₹) *</label>
+                                <select id="f_income" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="0">Below ₹1 Lakh</option>
+<option value="100000">₹1 Lakh - ₹2 Lakh</option>
+<option value="200000">₹2 Lakh - ₹2.5 Lakh</option>
+<option value="250000">₹2.5 Lakh - ₹3 Lakh</option>
+<option value="300001">Above ₹3 Lakh</option>
+                                    
+                                    
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">3. Caste Category *</label>
+                                <select id="f_category" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="SC">SC</option>
+                                    <option value="ST">ST</option>
+                                    <option value="OBC">OBC (Non-Creamy)</option>
+                                    <option value="EWS" selected>EWS</option>
+                                    <option value="General">General</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">7. Residence Duration (Years) *</label>
+                                <input type="number" id="f_residence" value="10" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+
+                        <!-- Detailed Address with Dynamic Districts -->
+                        <div class="bg-white p-4 rounded-xl border border-blue-200">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-blue-900 mb-3">Detailed Address</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">House No. / Block *</label>
+                                    <input type="text" id="f_house" placeholder="65" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" required>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">Lane / Locality / Colony *</label>
+                                    <input type="text" id="f_locality" placeholder="Colony Name" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" required>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">District *</label>
+                                    <select id="f_district" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" required>
+                                        <!-- Populated dynamically -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">State *</label>
+                                    <input type="text" id="f_state_input" disabled class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-lg text-sm font-bold text-blue-900">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-1">Pincode *</label>
+                                    <input type="text" id="f_pincode" placeholder="110001" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Family Member Card -->
+                    <div class="bg-emerald-50/40 rounded-2xl p-6 border border-emerald-100 mb-6">
+                        <h3 id="memberFormTitle" class="text-sm font-extrabold uppercase tracking-wider text-emerald-900 border-b border-emerald-200 pb-3 mb-4 flex items-center gap-2">
+                            <i data-lucide="user-plus" class="w-4 h-4"></i> Add Family Member (Education & Occupation)
+                        </h3>
+                        <input type="hidden" id="editMemberIndex" value="-1">
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Name of Member *</label>
+                                <input type="text" id="m_name" placeholder="Full Name" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Mobile Number *</label>
+                                <input type="tel" id="m_mobile" pattern="[0-9]{10}" placeholder="10 Digit Mobile Number" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Relationship *</label>
+                                <select id="m_relation" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                    <option value="Self">Self (Head)</option>
+                                    <option value="Spouse">Spouse (Pati/Patni)</option>
+                                    <option value="Son">Son</option>
+                                    <option value="Daughter">Daughter</option>
+                                    <option value="Father">Father</option>
+                                    <option value="Mother">Mother</option>
+                                    <option value="Brother">Brother</option>
+                                    <option value="Sister">Sister</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">6. Gender *</label>
+                                <select id="m_gender" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">1. Age (Years) *</label>
+                                <input type="number" id="m_age" placeholder="35" min="0" max="100" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">4. Education Level *</label>
+                                <select id="m_education" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                    <option value="Primary">Primary (1st - 5th)</option>
+                                    <option value="Secondary">Secondary (6th - 10th)</option>
+                                    <option value="Higher Secondary">Higher Secondary (11th - 12th)</option>
+                                    <option value="Graduate" selected>Graduate / Above</option>
+                                    <option value="Post Graduate">Post Graduate</option>
+                                    <option value="None">None / Illiterate</option>
+                                </select>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">5. Occupation / Beneficiary Type *</label>
+                                <select id="m_occupation" class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                    <option value="Student">Student</option>
+                                    <option value="Worker">Construction / Labor Worker</option>
+                                    <option value="Daily Wages">Daily Wages Worker</option>
+                                    <option value="Farmer">Farmer</option>
+                                    <option value="Business" selected>Small Business / Vendor</option>
+                                    <option value="Salaried">Salaried Employee</option>
+                                    <option value="Unemployed">Unemployed / Homemaker</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button type="button" id="addMemberBtn" onclick="saveFamilyMember()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-xl shadow transition text-sm flex items-center gap-1.5">
+                                <i data-lucide="plus-circle" class="w-4 h-4"></i> Add members to the list
+                            </button>
+                            <button type="button" id="cancelEditBtn" onclick="resetMemberForm()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-4 py-2.5 rounded-xl hidden transition text-sm">
+                                Cancel Edit
+                            </button>
+                        </div>
+
+                        <!-- Added Members List -->
+                        <div id="addedMembersSection" class="mt-6 hidden">
+                            <h4 class="font-semibold text-xs uppercase tracking-wider text-slate-600 mb-2">Added Family Members List:</h4>
+                            <div id="membersListContainer" class="space-y-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="button" onclick="submitFamilyCard()" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center space-x-2">
+                            <span>Lock Family Details & Check All Schemes</span>
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View 5: Results Section with Shared Family & Member Tabs -->
+            <div id="resultContainer" class="mt-8 hidden space-y-6">
+                <!-- 🏠 Family-Level / Personal Address & Shared Schemes Section -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border-2 border-orange-200">
+                    <div id="familyAddressBanner" class="bg-blue-50 border border-blue-200 p-3.5 rounded-2xl mb-4 text-xs sm:text-sm text-blue-900 font-medium"></div>
+                    <h3 class="text-xl font-bold text-orange-950 mb-2 flex items-center gap-2">
+                        🏠 Yojnayein (<span id="resultStateLabel">Delhi</span>)
+                    </h3>
+                    <p class="text-xs text-slate-600 mb-4">Yeh wo yojnayein hain jo is state mein sambhavit hain:</p>
+                    <div id="familyLevelSchemesBox" class="space-y-3"></div>
+                </div>
+
+                <!-- 👤 Individual Member Specific Schemes Section -->
+                <div id="individualResultSection" class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-100 hidden">
+                    <h3 class="text-xl font-bold text-indigo-950 mb-2">👤 Sadasya-Anusar Yojnayein (Individual Member Schemes)</h3>
+                    <p class="text-xs text-slate-500 mb-4">Neeche diye gaye sadasya ke naam par click karke unki vyakti-gat yojnayein dekhein:</p>
+                    
+                    <!-- Member Name Tabs (Column Style) -->
+                    <div id="memberTabsContainer" class="flex flex-wrap gap-2 border-b border-slate-100 pb-4 mb-6"></div>
+
+                    <!-- Selected Member Schemes Display -->
+                    <div id="selectedMemberSchemeBox" class="space-y-4"></div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                    <div class="h-8 w-8 rounded-lg bg-orange-600 flex items-center justify-center text-white">
+                        <i data-lucide="layers" class="w-4 h-4"></i>
+                    </div>
+                    <span class="font-bold text-white text-lg">Ujjwal Reach Portal</span>
+                </div>
+                <p class="text-xs leading-relaxed text-slate-400">
+                    Private multi-state welfare consulting and scheme eligibility initiative by Ujjwal Reach firm.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold text-sm mb-3">Supported Active States</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" onclick="selectState('Delhi'); return false;" class="hover:text-white transition-colors">Delhi Welfare Schemes</a></li>
+                    <li><a href="#" onclick="selectState('Madhya Pradesh'); return false;" class="hover:text-white transition-colors">Madhya Pradesh Welfare Schemes</a></li>
+                    <li><span class="text-slate-600">Uttar Pradesh (Coming Soon)</span></li>
+                    <li><span class="text-slate-600">Uttarakhand (Coming Soon)</span></li>
+                    <li><span class="text-slate-600">Punjab (Coming Soon)</span></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold text-sm mb-3">Quick Navigation</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" onclick="resetToStateSelection(); return false;" class="hover:text-white transition-colors">Change State</a></li>
+                    <li><a href="#" onclick="openModal('Quick Status Check'); return false;" class="hover:text-white transition-colors">Check Status</a></li>
+                    <li><a href="tel:9034317029" class="hover:text-white transition-colors">Direct Helpline</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold text-sm mb-3">Ujjwal Reach Helpline</h4>
+                <p class="text-xs mb-2">For assistance and queries:</p>
+                <div class="text-white font-bold text-lg mb-2 flex items-center space-x-2">
+                    <i data-lucide="phone-call" class="w-4 h-4 text-orange-500"></i>
+                    <a href="tel:9034317029" class="hover:underline">9034317029</a>
+                </div>
+                <p class="text-[11px] text-slate-500">Available Monday to Saturday (9:00 AM - 6:00 PM)</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Ujjwal Reach. All rights reserved. (Private Welfare Consulting Firm)</p>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-slate-400 transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-slate-400 transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-slate-400 transition-colors">Disclaimer</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Registration Modal -->
+    <div id="regModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full mx-4 p-6 sm:p-8 shadow-2xl relative transform transition-all scale-95 opacity-0" id="modalContainer">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 bg-slate-100 hover:bg-slate-200 p-2 rounded-full transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="flex items-center space-x-3 mb-4">
+                <div id="modalIconContainer" class="w-12 h-12 rounded-xl bg-blue-100 text-blue-900 flex items-center justify-center">
+                    <i data-lucide="user-check" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 id="modalTitle" class="text-xl font-bold text-slate-900">Registration</h3>
+                    <p class="text-xs text-slate-500">Enter details for verification & guidance</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleRegistration(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Aadhaar Card Number / ID Reference</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                            <i data-lucide="credit-card" class="w-4 h-4"></i>
+                        </span>
+                        <input type="text" required placeholder="Enter 12-digit number" maxlength="12" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all font-mono">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">Registered Mobile Number (OTP)</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                            <i data-lucide="smartphone" class="w-4 h-4"></i>
+                        </span>
+                        <input type="tel" required placeholder="Enter 10-digit mobile number" maxlength="10" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center space-x-2">
+                        <span>Send OTP & Verify Status</span>
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <p id="successMsg" class="hidden text-center text-emerald-600 text-xs font-semibold mt-3 animate-pulse">
+                    &check; Verification request sent successfully via Ujjwal Reach gateway!
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        lucide.createIcons();
+
+        let currentSelectedState = "Delhi";
+
+        // Escape user-supplied text before putting it into innerHTML
+        function esc(v) {
+            return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        }
+
+        // District Data for Delhi and Madhya Pradesh
+        const stateDistricts = {
+            "Delhi": ["Central Delhi", "New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi", "North-East Delhi", "North-West Delhi", "South-East Delhi", "South-West Delhi", "Shahdara"],
+            "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain", "Sagar", "Rewa", "Satna", "Dhar", "Chhindwara", "Morena", "Khargone", "Chhatarpur", "Shivpuri", "Balaghat", "Bhind", "Betul", "Dewas", "Rajgarh", "Shajapur", "Sehore", "Raisen", "Vidisha", "Hoshangabad (Narmadapuram)", "Khandwa", "Burhanpur", "Barwani", "Alirajpur", "Jhabua", "Ratlam", "Mandsaur", "Neemuch", "Agar Malwa", "Guna", "Ashoknagar", "Sheopur", "Datia", "Panna", "Damoh", "Tikamgarh", "Niwari", "Katni", "Narsinghpur", "Mandla", "Dindori", "Seoni", "Sidhi", "Singrauli", "Anuppur", "Umaria", "Harda"]
+        };
+
+        // State-Specific Family & Individual Master Schemes Databases
+        const schemesDatabase = {
+            "Delhi": {
+                familySchemes: [
+                    { name: "National Food Security Act (NFSA) / Priority Household Ration", desc: "Free or highly subsidized ration (Gehu, Chawal) for eligible families in Delhi.", link: "https://nfs.delhi.gov.in/", match: (d) => d.income <= 300000 },
+                    { name: "Delhi Lifeline Water & Electricity Subsidy", desc: "Free electricity up to 200 units and 20 kL lifeline water waiver for Delhi residents.", link: "https://delhi.gov.in/", match: (d) => d.residence >= 3 },
+                    { name: "Pradhan Mantri Awas Yojana - Urban (PMAY-U 2.0)", desc: "Subsidized housing and financial interest subsidy for EWS and LIG family ownership.", link: "https://pmaymis.gov.in/", match: (d) => d.category === 'EWS' || d.income <= 300000 },
+                    { name: "Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB-PMJAY)", desc: "Cashless health insurance cover up to ₹5 Lakh per family per year for hospitalizations.", link: "https://pmjay.gov.in/", match: (d) => d.income <= 300000 || d.category === 'EWS' }
+                ],
+                individualSchemes: [
+                    { name: "PM SVANidhi (Street Vendors AtmaNirbhar Nidhi)", desc: "Collateral-free working capital loan up to ₹50,000 and digital cashback for small business owners.", link: "https://pmswanidhi.mohua.gov.in/", match: (d) => d.occupation === 'Business' || d.occupation === 'Worker' },
+                    { name: "Pradhan Mantri Mudra Yojana (PMMY)", desc: "Easy collateral-free business loans up to ₹10 Lakh for expanding small businesses.", link: "https://www.mudra.org.in/", match: (d) => d.occupation === 'Business' || d.age >= 18 },
+                    { name: "Pradhan Mantri Employment Generation Programme (PMEGP)", desc: "Government subsidy assistance and loans for setting up new manufacturing or service micro-units.", link: "https://www.kviconline.gov.in/pmegpeportal/", match: (d) => d.age >= 18 && d.education !== 'None' },
+                    { name: "e-Shram Card Registration & Accidental Insurance Benefit", desc: "Accidental insurance coverage of ₹2 Lakh and social security benefits for unorganized workers.", link: "https://eshram.gov.in/", match: (d) => d.occupation !== 'Student' && d.occupation !== 'Salaried' },
+                    { name: "Mukhyamantri Teerth Yatra Yojana", desc: "Free pilgrimage travel across India for senior citizens with attendant support.", link: "https://delhi.gov.in/", match: (d) => d.age >= 60 },
+                    { name: "Ladli Scheme / Girl Child Support", desc: "Financial assistance and scholarship support for girl child education and upbringing.", link: "https://wcd.delhigovt.nic.in", match: (d) => d.gender === 'Female' && d.age <= 18 },
+                    { name: "Higher Education Loan Guarantee Scheme (₹10 Lakh)", desc: "Collateral-free student education loan support for higher studies after Class 12.", link: "https://highered.delhigovt.nic.in", match: (d) => d.education === 'Graduate' || d.education === 'Post Graduate' || d.education === 'Higher Secondary' },
+                    { name: "Delhi Building & Other Construction Workers Board Benefits", desc: "Maternity benefits, education assistance, and medical aid for registered construction workers.", link: "https://delhibocw.delhi.gov.in", match: (d) => d.occupation === 'Worker' || d.occupation === 'Daily Wages' }
+                ]
+            },
+            "Madhya Pradesh": {
+                familySchemes: [
+                    { name: "Mukhyamantri Ladli Behna Yojana", desc: "Financial assistance of ₹1250/month for eligible women of Madhya Pradesh.", link: "https://cmladlibehna.mp.gov.in/", match: (d) => d.gender === 'Female' && d.age >= 21 && d.income <= 250000 },
+                    { name: "Samagra Food Security Scheme - Subsidized Ration", desc: "Subsidized ration distribution across MP under Samagra portal guidelines.", link: "https://samagra.gov.in/", match: (d) => d.income <= 300000 },
+                    { name: "MP Jan Kalyan Sambal Yojana", desc: "Social security assistance, educational support, and accident/death compensation for registered workers' families.", link: "https://shramseva.mp.gov.in/", match: (d) => d.occupation === 'Worker' || d.occupation === 'Daily Wages' || d.income <= 200000 },
+                    { name: "Ayushman Bharat Niramaya MP / PM-JAY Health Insurance", desc: "Cashless medical treatment up to ₹5 Lakh per family per year in empanelled hospitals.", link: "https://pmjay.gov.in/", match: (d) => d.income <= 300000 || d.category === 'EWS' },
+                    { name: "Pradhan Mantri Awas Yojana - Urban & Rural (PMAY)", desc: "Housing assistance and subsidies for constructing or purchasing pucca houses.", link: "https://pmaymis.gov.in/", match: (d) => d.category === 'EWS' || d.income <= 300000 }
+                ],
+                individualSchemes: [
+                    { name: "Ladli Laxmi Yojana 2.0", desc: "Financial support and higher education incentives for girl child upbringing in MP.", link: "https://ladlilaxmi.mp.gov.in/", match: (d) => d.gender === 'Female' && d.age <= 18 },
+                    { name: "Gaon Ki Beti Yojana & Pratibha Kiran Scholarship", desc: "Scholarships for meritorious girl students pursuing higher education.", link: "http://scholarshipportal.mp.nic.in/", match: (d) => d.gender === 'Female' && (d.education === 'Graduate' || d.education === 'Post Graduate' || d.education === 'Higher Secondary') },
+                    { name: "Mukhyamantri Seekho-Kamao Yojana (Earn While Learn)", desc: "Skill training and stipend support for youth in industrial and commercial establishments.", link: "https://mmsky.mp.gov.in/", match: (d) => d.age >= 18 && d.age <= 29 && (d.education === 'Graduate' || d.education === 'Higher Secondary') },
+                    { name: "Mukhyamantri Udyam Kranti Yojana", desc: "Subsidized loans from ₹1 Lakh to ₹50 Lakh for youth to start manufacturing or business units in MP.", link: "https://shramseva.mp.gov.in/", match: (d) => d.age >= 18 && d.age <= 40 && d.education !== 'None' },
+                    { name: "Mukhyamantri Kisan Kalyan Yojana", desc: "Additional financial support of ₹6,000/year to farmers in MP (over and above PM-KISAN).", link: "https://mparpan.gov.in/", match: (d) => d.occupation === 'Farmer' },
+                    { name: "MP Post Matric Scholarship for SC / ST / OBC Students", desc: "Financial assistance and fee waivers for reserved category students.", link: "http://www.tribal.mp.gov.in/MPTAAS", match: (d) => (d.category === 'SC' || d.category === 'ST' || d.category === 'OBC') && (d.education === 'Graduate' || d.education === 'Post Graduate' || d.education === 'Higher Secondary') },
+                    { name: "Mukhyamantri Teerth Darshan Yojana", desc: "Free pilgrimage travel for senior citizens of Madhya Pradesh to sacred places across India.", link: "http://religious.mp.gov.in/", match: (d) => d.age >= 60 },
+                    { name: "Samagra Social Security Old Age & Widow Pension", desc: "Monthly pension support for senior citizens, widows, and destitute persons in MP.", link: "https://socialsecurity.mp.gov.in/", match: (d) => d.age >= 60 || d.occupation === 'Unemployed' },
+                    { name: "PM SVANidhi & Mudra Loan Scheme for MP Vendors", desc: "Collateral-free working capital loans and digital transaction incentives for street vendors and small shopkeepers.", link: "https://pmswanidhi.mohua.gov.in/", match: (d) => d.occupation === 'Business' || d.occupation === 'Worker' },
+                    { name: "e-Shram Card Registration & Accidental Insurance Benefit", desc: "Accidental insurance coverage of ₹2 Lakh and social security registration for unorganized workers.", link: "https://eshram.gov.in/", match: (d) => d.occupation !== 'Student' && d.occupation !== 'Salaried' }
+                ]
+            }
+        };
+
+        let familyMembersArray = [];
+        let evaluatedEntriesGlobal = [];
+        let familyRootDataGlobal = {};
+
+        function lockedStateAlert(stateName) {
+            alert(`${stateName} portal structure is currently locked. Only Delhi and Madhya Pradesh are fully active and ready!`);
+        }
+
+        function selectState(stateName) {
+            currentSelectedState = stateName;
+            document.getElementById('selectedStateBadge').innerText = stateName;
+            document.getElementById('cardStateName1').innerText = stateName;
+            document.getElementById('cardStateName2').innerText = stateName;
+            document.getElementById('activeStateLabel1').innerText = stateName;
+            document.getElementById('activeStateLabel2').innerText = stateName;
+            document.getElementById('resultStateLabel').innerText = stateName;
+            document.getElementById('f_state_input').value = stateName;
+            document.getElementById('p_state_input').value = stateName;
+
+            // Populate district dropdowns based on selected state
+            const populateDistricts = (selectId) => {
+                const districtSelect = document.getElementById(selectId);
+                districtSelect.innerHTML = '';
+                const districts = stateDistricts[stateName] || ["Default District"];
+                districts.forEach(dist => {
+                    const opt = document.createElement('option');
+                    opt.value = dist;
+                    opt.textContent = dist;
+                    districtSelect.appendChild(opt);
+                });
+            };
+
+            populateDistricts('f_district');
+            populateDistricts('p_district');
+
+            // Transition from State Selection to Mode Selection (Personal / Family)
+            document.getElementById('stateSelectionView').classList.add('hidden');
+            document.getElementById('selectionView').classList.remove('hidden');
+            document.getElementById('heroSubtitle').innerText = `Selected State: ${stateName}. Now select registration mode below.`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetToStateSelection() {
+            document.getElementById('stateSelectionView').classList.remove('hidden');
+            document.getElementById('selectionView').classList.add('hidden');
+            document.getElementById('personalView').classList.add('hidden');
+            document.getElementById('familyView').classList.add('hidden');
+            document.getElementById('resultContainer').classList.add('hidden');
+            document.getElementById('selectedStateBadge').innerText = "Select State";
+            document.getElementById('heroSubtitle').innerText = "Please select between Delhi and Madhya Pradesh to load state-specific welfare schemes and district data.";
+            familyMembersArray = [];
+            resetMemberForm();
+            renderMembersList();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function backToSelection() {
+            document.getElementById('personalView').classList.add('hidden');
+            document.getElementById('familyView').classList.add('hidden');
+            document.getElementById('resultContainer').classList.add('hidden');
+            document.getElementById('selectionView').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openMode(mode) {
+            document.getElementById('selectionView').classList.add('hidden');
+            
+            if(mode === 'personal') {
+                document.getElementById('personalView').classList.remove('hidden');
+            } else {
+                document.getElementById('familyView').classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function submitPersonal(e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('p_name').value,
+                mobile: document.getElementById('p_mobile').value,
+                age: parseInt(document.getElementById('p_age').value),
+                income: parseFloat(document.getElementById('p_income').value),
+                category: document.getElementById('p_category').value,
+                education: document.getElementById('p_education').value,
+                occupation: document.getElementById('p_occupation').value,
+                gender: document.getElementById('p_gender').value,
+                residence: parseInt(document.getElementById('p_residence').value)
+            };
+
+            const selectedDistrict = document.getElementById('p_district').value;
+            const addressText = `${document.getElementById('p_house').value}, ${document.getElementById('p_locality').value}, Dist. ${selectedDistrict}, ${currentSelectedState} - ${document.getElementById('p_pincode').value}`;
+
+            familyRootDataGlobal = { income: data.income, category: data.category, residence: data.residence };
+            renderResults([{ name: data.name, role: "Personal Applicant", mobile: data.mobile, data: data }], addressText, true);
+        }
+
+        function saveFamilyMember() {
+            const name = document.getElementById('m_name').value;
+            const mobile = document.getElementById('m_mobile').value;
+            const relation = document.getElementById('m_relation').value;
+            const gender = document.getElementById('m_gender').value;
+            const age = document.getElementById('m_age').value;
+            const education = document.getElementById('m_education').value;
+            const occupation = document.getElementById('m_occupation').value;
+            const editIndex = parseInt(document.getElementById('editMemberIndex').value);
+
+            if(!name || !mobile || !age) {
+                alert("Please fill member name, mobile number, and age.");
+                return;
+            }
+
+            const memberData = { name, mobile, relation, gender, age: parseInt(age), education, occupation };
+
+            if(editIndex === -1) {
+                familyMembersArray.push(memberData);
+            } else {
+                familyMembersArray[editIndex] = memberData;
+                resetMemberForm();
+            }
+
+            // Auto-reset form fields
+            document.getElementById('m_name').value = '';
+            document.getElementById('m_mobile').value = '';
+            document.getElementById('m_age').value = '';
+            document.getElementById('m_relation').selectedIndex = 0;
+            document.getElementById('m_gender').selectedIndex = 0;
+            document.getElementById('m_education').selectedIndex = 3; 
+            document.getElementById('m_occupation').selectedIndex = 4; 
+
+            renderMembersList();
+        }
+
+        function renderMembersList() {
+            const container = document.getElementById('membersListContainer');
+            const section = document.getElementById('addedMembersSection');
+            container.innerHTML = '';
+
+            if(familyMembersArray.length > 0) {
+                section.classList.remove('hidden');
+                familyMembersArray.forEach((m, idx) => {
+                    const div = document.createElement('div');
+                    div.className = "flex justify-between items-center bg-white p-3.5 rounded-xl border border-slate-200 text-sm shadow-sm";
+                    div.innerHTML = `
+                        <span><b>${esc(m.name)}</b> (${esc(m.relation)}) - Ph: ${esc(m.mobile)}, Age: ${esc(m.age)}, Occ: ${esc(m.occupation)}</span>
+                        <div class="space-x-3">
+                            <button type="button" onclick="editMember(${idx})" class="text-blue-600 font-semibold hover:underline">Edit</button>
+                            <button type="button" onclick="removeMember(${idx})" class="text-red-500 font-semibold hover:underline">Remove</button>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            } else {
+                section.classList.add('hidden');
+            }
+        }
+
+        function editMember(idx) {
+            const m = familyMembersArray[idx];
+            document.getElementById('m_name').value = m.name;
+            document.getElementById('m_mobile').value = m.mobile;
+            document.getElementById('m_relation').value = m.relation;
+            document.getElementById('m_gender').value = m.gender;
+            document.getElementById('m_age').value = m.age;
+            document.getElementById('m_education').value = m.education;
+            document.getElementById('m_occupation').value = m.occupation;
+            document.getElementById('editMemberIndex').value = idx;
+
+            document.getElementById('memberFormTitle').innerText = "✏️ EDIT FAMILY MEMBER DETAIL";
+            document.getElementById('addMemberBtn').innerText = "Update Member";
+            document.getElementById('cancelEditBtn').classList.remove('hidden');
+            document.getElementById('m_name').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetMemberForm() {
+            document.getElementById('m_name').value = '';
+            document.getElementById('m_mobile').value = '';
+            document.getElementById('m_age').value = '';
+            document.getElementById('editMemberIndex').value = "-1";
+            document.getElementById('memberFormTitle').innerHTML = '<i data-lucide="user-plus" class="w-4 h-4"></i> Add Family Member (Education & Occupation)';
+            document.getElementById('addMemberBtn').innerHTML = '<i data-lucide="plus-circle" class="w-4 h-4"></i> Add members to the list';
+            document.getElementById('cancelEditBtn').classList.add('hidden');
+            lucide.createIcons();
+        }
+
+        function removeMember(idx) {
+            familyMembersArray.splice(idx, 1);
+            renderMembersList();
+        }
+
+        function submitFamilyCard() {
+            if(familyMembersArray.length === 0) {
+                alert("Please add at least one family member.");
+                return;
+            }
+
+            const collectiveIncome = parseFloat(document.getElementById('f_income').value);
+            const collectiveCategory = document.getElementById('f_category').value;
+            const collectiveResidence = parseInt(document.getElementById('f_residence').value);
+            const selectedDistrict = document.getElementById('f_district').value;
+            const addressText = `${document.getElementById('f_house').value}, ${document.getElementById('f_locality').value}, Dist. ${selectedDistrict}, ${currentSelectedState} - ${document.getElementById('f_pincode').value}`;
+
+            familyRootDataGlobal = { income: collectiveIncome, category: collectiveCategory, residence: collectiveResidence };
+
+            evaluatedEntriesGlobal = familyMembersArray.map(m => ({
+                name: m.name,
+                relation: m.relation,
+                mobile: m.mobile,
+                role: "Family Member",
+                data: {
+                    ...m,
+                    income: collectiveIncome,
+                    category: collectiveCategory,
+                    residence: collectiveResidence
+                }
+            }));
+
+            renderResults(evaluatedEntriesGlobal, addressText, false);
+        }
+
+        function renderResults(entries, address, isPersonal = false) {
+            evaluatedEntriesGlobal = entries;
+            
+            const familyBox = document.getElementById('familyLevelSchemesBox');
+            const stateSchemes = schemesDatabase[currentSelectedState] || schemesDatabase["Delhi"];
+            const eligibleFamilySchemes = stateSchemes.familySchemes.filter(s => s.match(familyRootDataGlobal));
+            
+            document.getElementById('familyAddressBanner').innerHTML = `📍 <b>Registered Address (${esc(currentSelectedState)}):</b> ${esc(address)}`;
+
+            familyBox.innerHTML = eligibleFamilySchemes.length > 0 ? 
+                eligibleFamilySchemes.map(s => `
+                    <div class="bg-orange-50/50 p-4 rounded-xl shadow-sm border border-orange-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                        <div>
+                            <h5 class="font-semibold text-orange-950 text-sm">${s.name}</h5>
+                            <p class="text-xs text-slate-600">${s.desc}</p>
+                        </div>
+                        <a href="${s.link}" target="_blank" rel="noopener noreferrer" class="bg-orange-600 hover:bg-orange-700 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow whitespace-nowrap">
+                            Official Page par Jayein &rarr;
+                        </a>
+                    </div>
+                `).join('') : 
+                `<p class="text-sm text-slate-500 italic p-3">No shared schemes matched for ${esc(currentSelectedState)}.</p>`;
+
+            const individualSection = document.getElementById('individualResultSection');
+            const tabsContainer = document.getElementById('memberTabsContainer');
+            
+            if(isPersonal) {
+                individualSection.classList.add('hidden');
+            } else {
+                individualSection.classList.remove('hidden');
+                tabsContainer.innerHTML = '';
+
+                entries.forEach((entry, idx) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.id = `tabBtn_${idx}`;
+                    btn.className = `px-4 py-2.5 rounded-xl font-medium text-sm transition shadow-sm ${idx === 0 ? 'bg-blue-900 text-white shadow-blue-900/20' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`;
+                    btn.innerHTML = `${esc(entry.name)} <span class="text-xs opacity-80">(${esc(entry.relation || entry.role)})</span>`;
+                    btn.onclick = () => selectMemberTab(idx);
+                    tabsContainer.appendChild(btn);
+                });
+
+                if(entries.length > 0) {
+                    selectMemberTab(0);
+                }
+            }
+
+            document.getElementById('personalView').classList.add('hidden');
+            document.getElementById('familyView').classList.add('hidden');
+            document.getElementById('resultContainer').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectMemberTab(index) {
+            evaluatedEntriesGlobal.forEach((_, idx) => {
+                const btn = document.getElementById(`tabBtn_${idx}`);
+                if(btn) {
+                    if(idx === index) {
+                        btn.className = "px-4 py-2.5 rounded-xl font-medium text-sm transition shadow-sm bg-blue-900 text-white shadow-blue-900/20";
+                    } else {
+                        btn.className = "px-4 py-2.5 rounded-xl font-medium text-sm transition shadow-sm bg-slate-100 text-slate-700 hover:bg-slate-200";
+                    }
+                }
+            });
+
+            const entry = evaluatedEntriesGlobal[index];
+            const schemeBox = document.getElementById('selectedMemberSchemeBox');
+            const stateSchemes = schemesDatabase[currentSelectedState] || schemesDatabase["Delhi"];
+            const eligible = stateSchemes.individualSchemes.filter(s => s.match(entry.data));
+
+            let schemesHtml = eligible.length > 0 ? 
+                eligible.map(s => `
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                        <div>
+                            <h5 class="font-semibold text-slate-900 text-sm">${s.name}</h5>
+                            <p class="text-xs text-slate-600">${s.desc}</p>
+                        </div>
+                        <a href="${s.link}" target="_blank" rel="noopener noreferrer" class="bg-blue-900 hover:bg-blue-800 text-white text-xs font-medium px-4 py-2 rounded-xl transition shadow whitespace-nowrap">
+                            Official Page par Jayein &rarr;
+                        </a>
+                    </div>
+                `).join('') : 
+                `<p class="text-sm text-slate-500 italic p-4 bg-slate-50 rounded-xl">Filhal is sadasya ke liye koi vishesh individual yojna match nahi hui.</p>`;
+
+            schemeBox.innerHTML = `
+                <div class="bg-blue-50/40 p-5 rounded-2xl border border-blue-100 mb-2">
+                    <div class="flex flex-col md:flex-row justify-between text-sm text-slate-700 mb-4 border-b border-blue-100 pb-3">
+                        <span>👤 <b>Naam:</b> ${esc(entry.name)} (${esc(entry.relation || entry.role)})</span>
+                        <span>📱 <b>Mobile:</b> ${esc(entry.mobile)}</span>
+                    </div>
+                    <div class="space-y-3">
+                        ${schemesHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function openModal(type) {
+            const modal = document.getElementById('regModal');
+            const container = document.getElementById('modalContainer');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+                container.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('regModal');
+            const container = document.getElementById('modalContainer');
+            container.classList.remove('scale-100', 'opacity-100');
+            container.classList.add('scale-95', 'opacity-0');
+            document.getElementById('successMsg').classList.add('hidden');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function handleRegistration(e) {
+            e.preventDefault();
+            const successMsg = document.getElementById('successMsg');
+            successMsg.classList.remove('hidden');
+            setTimeout(() => {
+                alert(`Verification initiated for ${currentSelectedState}! Redirecting to Ujjwal Reach gateway...`);
+                closeModal();
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
