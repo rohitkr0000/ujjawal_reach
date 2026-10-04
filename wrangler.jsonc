@@ -1,0 +1,12 @@
+{
+  // Cloudflare Workers: publishes the static website (built into apps/web/out) from the CDN.
+  // Build command in Cloudflare:  npm ci && npm run build -w @ujjwal/web
+  // Deploy command in Cloudflare: npx wrangler deploy
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ujjawal-reach",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./apps/web/out",
+    "not_found_handling": "404-page"
+  }
+}

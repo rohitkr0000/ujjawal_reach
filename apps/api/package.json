@@ -11,7 +11,8 @@
     "test": "vitest run",
     "admin:create": "tsx src/scripts/create-admin.ts",
     "seed": "tsx src/scripts/seed.ts",
-    "links:check": "tsx src/scripts/check-links.ts"
+    "links:check": "tsx src/scripts/check-links.ts",
+    "schema:export": "tsx src/scripts/export-schema.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
